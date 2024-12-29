@@ -1,0 +1,22 @@
+{
+    "extends": [
+        "plugin:@typescript-eslint/recommended",
+        "plugin:nestjs/recommended",
+        "prettier"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "project": "./tsconfig.json",
+        "sourceType": "module"
+    },
+    "plugins": ["@typescript-eslint", "nestjs", "prettier"],
+    "env": {
+        "node": true,
+        "es2020": true
+    },
+    "rules": {
+        "prettier/prettier": ["error"],
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/explicit-module-boundary-types": "off"
+    }
+}

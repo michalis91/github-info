@@ -1,0 +1,4 @@
+{
+    "exec": "node --inspect-brk dist/main.js",
+    "watch": ["dist"]
+}

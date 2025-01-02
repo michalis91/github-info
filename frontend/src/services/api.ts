@@ -8,3 +8,5 @@ export const getUserGists = (username: string) =>
     axios.get(`${API_URL}/user/${username}/gists`);
 export const getUserOrgs = (username: string) =>
     axios.get(`${API_URL}/user/${username}/orgs`);
+export const getUserRepos = (username: string) =>
+    axios.get(`${API_URL}/user/${username}/repos`);

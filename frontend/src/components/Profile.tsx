@@ -1,16 +1,8 @@
 import React from 'react';
 import CardComponent from './CardComponent';
+import { ProfileData } from '../data/models/Profile.model';
 
-type ProfileProps = {
-    data: {
-        login: string;
-        name: string;
-        bio: string;
-        avatar_url: string;
-    } | null;
-};
-
-const Profile: React.FC<ProfileProps> = ({ data }) => {
+const Profile: React.FC<ProfileData> = ({ data }) => {
     if (!data) return <p>No Profile Data. Search for a GitHub user.</p>;
 
     return (

@@ -13,78 +13,41 @@ export class AppService {
 
     private baseUrl = this.configService.get<string>('GITHUB_API_URL');
 
-    async getUserData(username: string) {
+    async getUserData(username: string): Promise<any> {
         const url = `${this.baseUrl}/users/${username}`;
-        try {
-            const response = await firstValueFrom(this.httpService.get(url));
-            return response.data;
-        } catch (error) {
-            if (error.response) {
-                if (error.response.status === 403) {
-                    throw new HttpException(
-                        'Rate limit exceeded. Please try again later.',
-                        HttpStatus.FORBIDDEN
-                    );
-                }
-                throw new HttpException(
-                    `Request failed with status ${error.response.status}`,
-                    HttpStatus.BAD_REQUEST
-                );
-            } else {
-                throw new HttpException(
-                    'An error occurred while fetching user data.',
-                    HttpStatus.INTERNAL_SERVER_ERROR
-                );
-            }
-        }
+        return this.httpGet(url);
     }
 
-    async getUserGists(username: string) {
+    async getUserRepos(username: string): Promise<any> {
+        const url = `${this.baseUrl}/users/${username}/repos`;
+        return this.httpGet(url);
+    }
+
+    async getUserGists(username: string): Promise<any> {
         const url = `${this.baseUrl}/users/${username}/gists`;
-        try {
-            const response = await firstValueFrom(this.httpService.get(url));
-            return response.data;
-        } catch (error) {
-            if (error.response) {
-                if (error.response.status === 403) {
-                    throw new HttpException(
-                        'Rate limit exceeded. Please try again later.',
-                        HttpStatus.FORBIDDEN
-                    );
-                }
-                throw new HttpException(
-                    `Request failed with status ${error.response.status}`,
-                    HttpStatus.BAD_REQUEST
-                );
-            } else {
-                throw new HttpException(
-                    'An error occurred while fetching user data.',
-                    HttpStatus.INTERNAL_SERVER_ERROR
-                );
-            }
-        }
+        return this.httpGet(url);
     }
 
-    async getUserOrgs(username: string) {
+    async getUserOrgs(username: string): Promise<any> {
         const url = `${this.baseUrl}/users/${username}/orgs`;
+        return this.httpGet(url);
+    }
+
+    private async httpGet(url: string): Promise<any> {
         try {
             const response = await firstValueFrom(this.httpService.get(url));
             return response.data;
         } catch (error) {
             if (error.response) {
-                if (error.response.status === 403) {
-                    throw new HttpException(
-                        'Rate limit exceeded. Please try again later.',
-                        HttpStatus.FORBIDDEN
-                    );
-                }
-                throw new HttpException(
-                    `Request failed with status ${error.response.status}`,
-                    HttpStatus.BAD_REQUEST
-                );
+                const status = error.response.status;
+                const message =
+                    status === 403
+                        ? 'Rate limit exceeded. Please try again later.'
+                        : `Request failed with status ${status}`;
+                throw new HttpException(message, HttpStatus.BAD_REQUEST);
             } else {
                 throw new HttpException(
-                    'An error occurred while fetching user data.',
+                    'An error occurred while making the request.',
                     HttpStatus.INTERNAL_SERVER_ERROR
                 );
             }

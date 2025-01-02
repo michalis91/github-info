@@ -19,4 +19,9 @@ export class AppController {
     async getOrgs(@Param('username') username: string) {
         return this.appService.getUserOrgs(username);
     }
+
+    @Get(':username/repos')
+    async getRepos(@Param('username') username: string) {
+        return this.appService.getUserRepos(username);
+    }
 }

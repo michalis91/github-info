@@ -6,14 +6,12 @@ import { useUserData } from '../hooks/useUserData';
 
 const SearchPage: React.FC = () => {
     const [view, setView] = useState<'search' | 'results'>('search');
-    const [activeTab, setActiveTab] = useState(0);
+    const [activeTab, setActiveTab] = useState('profile');
     const [inputUsername, setInputUsername] = useState('');
     const [username, setUsername] = useState('');
 
-    const { loading, error, profileData, gistsData, orgsData } = useUserData(
-        username,
-        activeTab
-    );
+    const { loading, error, profileData, gistsData, orgsData, reposData } =
+        useUserData(username, activeTab);
 
     const handleSearch = () => {
         if (inputUsername.trim() === '') return;
@@ -25,7 +23,7 @@ const SearchPage: React.FC = () => {
         setView('search');
         setInputUsername('');
         setUsername('');
-        setActiveTab(0);
+        setActiveTab('profile');
     };
 
     return (
@@ -45,6 +43,7 @@ const SearchPage: React.FC = () => {
                     profileData={profileData}
                     gistsData={gistsData}
                     orgsData={orgsData}
+                    reposData={reposData}
                     handleNewSearch={handleNewSearch}
                 />
             )}

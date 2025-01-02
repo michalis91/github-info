@@ -1,14 +1,8 @@
 import React from 'react';
 import CardComponent from './CardComponent';
+import { OrganizationsData } from '../data/models/Organization.model';
 
-type OrganizationsProps = {
-    data: Array<{
-        login: string;
-        avatar_url: string;
-    }>;
-};
-
-const Organizations: React.FC<OrganizationsProps> = ({ data }) => {
+const Organizations: React.FC<OrganizationsData> = ({ data }) => {
     if (data.length === 0) return <p>No Organizations Found</p>;
 
     return (

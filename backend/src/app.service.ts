@@ -11,7 +11,10 @@ export class AppService {
         private configService: ConfigService
     ) {}
 
-    private baseUrl = this.configService.get<string>('GITHUB_API_URL');
+    private baseUrl = this.configService.get<string>(
+        'GITHUB_API_URL',
+        'https://api.github.com'
+    );
 
     async getUserData(username: string): Promise<any> {
         const url = `${this.baseUrl}/users/${username}`;

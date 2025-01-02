@@ -1,15 +1,8 @@
 import React from 'react';
 import CardComponent from './CardComponent';
+import { GistsData } from '../data/models/Gist.model';
 
-type GistsProps = {
-    data: Array<{
-        id: string;
-        description: string;
-        html_url: string;
-    }>;
-};
-
-const Gists: React.FC<GistsProps> = ({ data }) => {
+const Gists: React.FC<GistsData> = ({ data }) => {
     if (data.length === 0) return <p>No Gists Found</p>;
 
     return (
